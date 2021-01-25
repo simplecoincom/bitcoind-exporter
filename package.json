@@ -1,0 +1,39 @@
+{
+  "name": "bitcoind-exporter",
+  "version": "2.5.4",
+  "description": "bitcoind metrics prometheus exporter",
+  "main": "index.js",
+  "scripts": {
+    "test": "dgoss run simplecoin/bitcoind-exporter",
+    "start": "node -r dotenv/config index.js",
+    "build": "docker build -t simplecoin/bitcoind-exporter .",
+    "push": "docker push simplecoin/bitcoind-exporter",
+    "publish": "npm run build && npm run test && npm run push",
+    "demo": "docker-compose up"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simplecoincom/bitcoind-exporter.git"
+  },
+  "keywords": [
+    "bitcoin",
+    "bitcoind",
+    "monitoring",
+    "prometheus",
+    "wallet",
+    "metrics",
+    "exporter"
+  ],
+  "author": "WesleyCharlesBlake",
+  "license": "MIT",
+  "dependencies": {
+    "bitcoind-client": "^2.2.9",
+    "compression": "^1.7.2",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.2",
+    "helmet": "^3.12.0",
+    "isomorphic-fetch": "^2.2.1",
+    "prom-client": "^10.2.3",
+    "serve-static": "^1.13.2"
+  }
+}
