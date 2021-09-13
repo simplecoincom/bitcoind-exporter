@@ -2,17 +2,28 @@ version: '2'
 services:
   bitcoind:
     image: simplecoin/bitcoind:v0.21.0
-    command: [
-      "-testnet",
-      "-rpcallowip=::/0",
-      "-rpcuser=test",
-      "-rpcpassword=test",
-    ]
-    environment:
-      - DISABLEWALLET=0
+    command: ["-conf=/etc/bitcoin/bitcoin.conf"]
+    volumes:
+      - ./configs/regtest.conf:/etc/bitcoin/bitcoin.conf
+  node2:
+    image: simplecoin/bitcoind:v0.21.0
+    ports:
+      - "18402:18443"
+      - "18502:18444"
+    expose: 
+      - "18444"
+    command: ["-conf=/etc/bitcoin/bitcoin.conf", "-addnode=bitcoind:18444"]
+    volumes:
+      - ./configs/regtest.conf:/etc/bitcoin/bitcoin.conf
+      
   exporter:
     build: .
     ports:
       - "9439:9439"
+    environment:
+      - rpcuser=rpcuser
+      - rpcpassword=rpcpassword
+      - rpcport=18443
+      - rpchost=node2
     links:
       - bitcoind

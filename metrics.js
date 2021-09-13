@@ -47,6 +47,22 @@ const addressBalanceMetric = new Gauge({
     help: `address balance`,
     labelNames: ['address']
 });
+const connectionsMetric = new Gauge({
+    name: `bitcoin_connections`,
+    help: `Number of peers`,
+    labelNames: ['peers']
+});
+const connectionsInMetric = new Gauge({
+    name: `bitcoin_connections_in`,
+    help: `Number of peers`,
+    labelNames: ['peers']
+});
+const connectionsOutMetric = new Gauge({
+    name: `bitcoin_connections_out`,
+    help: `Number of peers`,
+    labelNames: ['peers']
+});
+
 
 module.exports = {
     bestBlockIndexMetric,
@@ -60,4 +76,7 @@ module.exports = {
     unlockedUntilMetric,
     transactionFeeMetric,
     addressBalanceMetric,
-};
+    connectionsMetric,
+    connectionsInMetric,
+    connectionsOutMetric,
+}

@@ -12,7 +12,10 @@ const {
     keyPoolSizeMetric,
     unlockedUntilMetric,
     transactionFeeMetric,
-    addressBalanceMetric
+    addressBalanceMetric,
+    connectionsMetric,
+    connectionsInMetric,
+    connectionsOutMetric,
 } = require('./metrics');
 
 const {
@@ -83,12 +86,19 @@ const metricsHandler = (req, res) => {
     const difficultyPromise = call('getdifficulty')
         .then(difficulty => difficultyMetric.set(difficulty))
     ;
-
+    const peersPromise = call('getnetworkinfo')
+    .then(peerConnections => {
+        connectionsMetric.set(peerConnections.connections);
+        connectionsInMetric.set(peerConnections.connections_in);
+        connectionsOutMetric.set(peerConnections.connections_out);
+    })
+    ;
     Promise.all([
         listUnspentPromise,
         walletInfoPromise,
         bestBlockPromise,
-        difficultyPromise
+        difficultyPromise,
+        peersPromise
     ])
         .then(() => res.end(register.metrics()))
         .catch((error) => {
