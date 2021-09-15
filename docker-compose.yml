@@ -24,6 +24,6 @@ services:
       - rpcuser=rpcuser
       - rpcpassword=rpcpassword
       - rpcport=18443
-      - rpchost=node2
+      - rpchost=bitcoind
     links:
       - bitcoind
