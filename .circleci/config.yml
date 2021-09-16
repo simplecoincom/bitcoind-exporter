@@ -8,7 +8,9 @@ workflows:
   build_and_test_deploy:
     jobs:
       - docker/publish:
-          context: dockerhub
+          context: 
+            - dockerhub
+            - slack-secrets
           image: simplecoin/bitcoind-exporter
           docker-username: DOCKER_USER
           docker-password: DOCKER_PASS
@@ -20,14 +22,18 @@ workflows:
             branches:
               only: master
       - simplecoin-utils/semantic-release:
-          context: github
+          context: 
+            - github
+            - slack-secrets
           requires:
             - anchore/image_scan
           
   tag_and_release:
     jobs:
       - docker/publish:
-          context: dockerhub
+          context: 
+            - dockerhub
+            - slack-secrets
           image: simplecoin/bitcoind-exporter
           tag: $CIRCLE_TAG,"latest"
           docker-username: DOCKER_USER
