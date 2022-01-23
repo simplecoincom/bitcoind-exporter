@@ -33,7 +33,7 @@
     "express": "^4.16.2",
     "helmet": "^3.12.0",
     "isomorphic-fetch": "^2.2.1",
-    "node-fetch": ">=2.6.1",
+    "node-fetch": ">=3.1.1",
     "prom-client": "^10.2.3",
     "serve-static": "^1.13.2"
   }
