@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:21.2-alpine3.18
 
 ENV NODE_ENV=production \
     NPM_CONFIG_LOGLEVEL=error \
